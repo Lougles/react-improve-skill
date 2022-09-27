@@ -1,18 +1,18 @@
 import React from 'react';
 import '../styles/App.css'
 
-const PostItem = (props) => {
+const PostItem = ({post, remove}) => {
   return (
     <div className={"app"}>
       <div className={"post"}>
         <div className={"post_content"}>
-          <strong>{props.post.id}. {props.post.title}</strong>
+          <strong>{post.id}. {post.title}</strong>
           <div>
-            {props.post.body}
+            {post.body}
           </div>
         </div>
         <div className={"post_delete_btns"}>
-          <button>Delete</button>
+          <button onClick={() => remove(post.id)}>Delete</button>
         </div>
       </div>
     </div>
