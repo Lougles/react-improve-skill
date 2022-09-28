@@ -5,12 +5,9 @@
 }
 
 #root {
-    display: flex;
     justify-content: center;
-}
-
-.App {
-    width: 800px;
+    padding: 0 50px;
+    margin: 0 50px;
 }
 
 .post {

@@ -14,12 +14,6 @@ const DynamicPostList = ({create}) => {
     create(newPost)
     setPost({title: '', body: ''})
   }
-  
-  // const addNewPost = (e) => {
-  //   e.preventDefault();
-  //   setPosts([...posts, {...post, id: Date.now()}])
-  //   setPost({title: '', body: ''})
-  // }
   return (
     <div className="App">
       <form>

@@ -2,6 +2,8 @@ import React, {useMemo, useState} from "react";
 import DynamicPostList from "./components/DynamicPostList";
 import PostList from "./components/PostList";
 import PostFilter from "./components/PostFilter";
+import MyModal from "./components/UI/MyModal/MyModal";
+import MyButton from "./components/UI/button/MyButton";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -9,8 +11,8 @@ function App() {
     {id: 2, title: "Zebra 2", body: "Its Description"},
     {id: 3, title: "Honda 3", body: "Awesome"}
   ]);
-  
-  const [filter, setFilter] = useState({sort: '', query: ''})
+  const [filter, setFilter] = useState({sort: '', query: ''});
+  const [modal, setModal] = useState(false);
   
   const sortedPost = useMemo(() => {
     if(filter.sort){
@@ -25,6 +27,7 @@ function App() {
   
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
+    setModal(false);
   }
   
   const removePost = (id) => {
@@ -33,7 +36,10 @@ function App() {
   
   return (
     <div>
-      <DynamicPostList create={createPost}/>
+      <MyButton style={{marginTop: 30}} onClick={() => setModal(true)} >Create Post</MyButton>
+      <MyModal visible={modal} setVisible={setModal}>
+        <DynamicPostList create={createPost}/>
+      </MyModal>
       <hr style={{margin: '15px 0'}}/>
       <PostFilter filter={filter} setFilter={setFilter}/>
       <PostList posts={sortedAndSearchPosts} remove={removePost} title={'Posts about something'}/>
