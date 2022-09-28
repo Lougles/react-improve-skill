@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import MyInput from "./UI/input/MyInput";
 import MyButton from "./UI/button/MyButton";
-import PostItem from "./PostItem";
 
 const DynamicPostList = ({create}) => {
   
