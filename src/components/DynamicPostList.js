@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import MyInput from "./UI/input/MyInput";
 import MyButton from "./UI/button/MyButton";
-import PostItem from "./PostItem";
 
 const DynamicPostList = ({create}) => {
   
@@ -15,12 +14,6 @@ const DynamicPostList = ({create}) => {
     create(newPost)
     setPost({title: '', body: ''})
   }
-  
-  // const addNewPost = (e) => {
-  //   e.preventDefault();
-  //   setPosts([...posts, {...post, id: Date.now()}])
-  //   setPost({title: '', body: ''})
-  // }
   return (
     <div className="App">
       <form>
