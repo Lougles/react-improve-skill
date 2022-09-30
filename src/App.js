@@ -15,23 +15,22 @@ function App() {
   const [filter, setFilter] = useState({sort: '', query: ''});
   const [modal, setModal] = useState(false);
   const sortedAndSearchPosts = usePosts(posts, filter.sort, filter.query);
-  // const [fetchPosts, isLoading, postErr] = useFetch(async () => {
-  //   const posts = await PostService.getAll();
-  //   setPosts(posts);
-  // })
-  const [isLoading, setIsLoading] = useState(false);
+  const [fetchPosts, isLoading, postErr] = useFetch(async () => {
+    const posts = await PostService.getAll();
+    setPosts(posts);
+  })
   
   useEffect(() => {
     fetchPosts()
   }, [])
   
   
-  async function fetchPosts() {
-    setIsLoading(true);
-    const posts = await PostService.getAll();
-    setPosts(posts);
-    setIsLoading(false);
-  }
+  // async function fetchPosts() {
+  //   setIsLoading(true);
+  //   const posts = await PostService.getAll();
+  //   setPosts(posts);
+  //   setIsLoading(false);
+  // }
   
   const createPost = (newPost) => {
     setPosts([...posts, newPost])

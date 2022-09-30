@@ -4,7 +4,7 @@ export const useFetch = (getdata) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   
-  const fetching = async() => {
+  const fetching = async () => {
     try{
       setIsLoading(true)
       await getdata()
@@ -13,6 +13,6 @@ export const useFetch = (getdata) => {
     }finally {
       setIsLoading(false);
     }
-    return [fetching, isLoading, error]
   }
+    return [fetching, isLoading, error]
 }
