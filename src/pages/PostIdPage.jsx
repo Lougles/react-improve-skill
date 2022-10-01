@@ -7,22 +7,42 @@ import Loader from "../components/UI/Loader/Loader";
 const PostIdPage = () => {
   const params = useParams();
   const [post, setPost] = useState({});
-  const [fetchPostById, isLoading, error] = useFetch(async (id) => {
-    const response = await PostService.getById(id);
+  const [comments, setComment] = useState([])
+  const [fetchPostById, isLoadingPost, errorPost] = useFetch(async () => {
+    const response = await PostService.getById(params.id);
     setPost(response.data);
   })
-  
+  const [fetchComment, isLoadingComment, errorComment] = useFetch(async () => {
+    const response = await PostService.getComments(params.id);
+    setComment(response.data);
+  })
   useEffect(() => {
-    fetchPostById(params.id)
+    fetchPostById();
+    fetchComment();
   }, [])
-  console.log(params);
   return (
     <div>
-      <h1>Page {params.id} </h1>
-      {isLoading ?
+      <h2>Page {params.id} </h2>
+      {isLoadingPost ?
       <Loader />
       :
-      <div>{post.id}. {post.title}</div>
+        <div>
+          <h3>{post.id}. {post.title}</h3>
+          <div>{post.body}</div>
+        </div>
+      }
+      <h2 style={{marginTop: 15}}> Comments </h2>
+      {isLoadingComment ?
+      <Loader />
+      :
+        <div>
+          {comments.map(com =>
+            <div key={com.id} style={{marginTop: 15}}>
+              <h5>{com.email}</h5>
+              <div>{com.body}</div>
+            </div>
+          )}
+        </div>
       }
     </div>
   );
