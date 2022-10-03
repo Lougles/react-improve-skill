@@ -1,7 +1,10 @@
 import React from 'react';
 import '../styles/App.css'
+import MyButton from "./UI/button/MyButton";
+import { useNavigate } from "react-router-dom";
 
 const PostItem = ({post, remove}) => {
+  const navigate = useNavigate();
   return (
     <div className={"app"}>
       <div className={"post"}>
@@ -12,7 +15,8 @@ const PostItem = ({post, remove}) => {
           </div>
         </div>
         <div className={"post_delete_btns"}>
-          <button onClick={() => remove(post.id)}>Delete</button>
+          <MyButton onClick={() => navigate(`/posts/${post.id}`)}>Open</MyButton>
+          <MyButton onClick={() => remove(post.id)}>Delete</MyButton>
         </div>
       </div>
     </div>
