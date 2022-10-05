@@ -11,6 +11,7 @@ import {useFetch} from "../hooks/useFetch";
 import PostService from "../API/PostService";
 import {getPageCount} from "../utils/pages";
 import {useObserver} from "../hooks/useObserver";
+import MySelect from "../components/UI/select/MySelect";
 
 const Post = () => {
   const [posts, setPosts] = useState([]);
@@ -31,32 +32,16 @@ const Post = () => {
   useObserver(lastElement, page < totalPages, isLoading, () => {
     setPage(page + 1);
   })
-  // useEffect(() => {
-  //   if (isLoading) return;
-  //   if(observer.current) observer.current.disconnect();
-  //   let callback = function(entries, observer){
-  //     if(entries[0].isIntersecting && page < totalPages){
-  //       setPage(page + 1);
-  //     }
-  //   }
-  //   observer.current = new IntersectionObserver(callback);
-  //   observer.current.observe(lastElement.current);
-  // }, [isLoading])
-  
   useEffect(() => {
     fetchPosts(limit, page)
-  }, [page])
-  
-  
+  }, [page, limit])
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
     setModal(false);
   }
-  
   const removePost = (id) => {
     setPosts(posts.filter(item => item.id !== id))
   }
-  
   const changePage = (p) => {
     setPage(p)
   }
@@ -68,6 +53,17 @@ const Post = () => {
       </MyModal>
       <hr style={{margin: '15px 0'}}/>
       <PostFilter filter={filter} setFilter={setFilter}/>
+      <MySelect
+        value={limit}
+        onChange={value => setLimit(value)}
+        defaultValue='Count of element on the page'
+        options={[
+          {value: 5, name: '5'},
+          {value: 10, name: '10'},
+          {value: 15, name: '15'},
+          {value: -1, name: 'Show all'},
+        ]}
+      />
       {postErr &&
         <h1>Some mistake: '{postErr}'</h1>
       }
